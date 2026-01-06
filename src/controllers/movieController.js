@@ -2,7 +2,10 @@ const Movie = require('../models/Movie');
 
 exports.addMovie = async (req, res) => {
   try {
-    const movie = await Movie.create(req.body);
+    const movie = await Movie.create({
+      ...req.body,
+      createdBy:req.user.userId,
+  });
     res.status(201).json(movie);
   } catch (error) {
     res.status(500).json({ message: "Failed to add movie" });
@@ -15,7 +18,7 @@ exports.getMovies = async (req, res) => {
     const limit = Number(req.query.limit) || 5;
     const skip = (page - 1) * limit;
 
-    const movies = await Movie.find().
+    const movies = await Movie.find().populate("createdBy", "name email").
       skip(skip).
       limit(limit).
       sort({ createdAt: -1 });
