@@ -1,39 +1,42 @@
 const mongoose = require('mongoose');
 
 const movieSchema = new mongoose.Schema({
-  title:{
-    type:String,
-    required:true,
-    trim:true
+  title: {
+    type: String,
+    required: true,
+    trim: true
   },
-  description:{
-    type:String,
-    required:true
+  description: {
+    type: String,
+    required: true
   },
-  genre:{
-    type:String,
-    required:true,
+  genre: {
+    type: String,
+    required: true,
     index: true
   },
-  releaseYear:{
-    type:Number
+  releaseYear: {
+    type: Number
   },
-  duration:{
-    type:Number
+  duration: {
+    type: Number
   },
-  rating:{
-    type:Number,
-    min:0,
-    max:10
+  rating: {
+    type: Number,
+    min: 0,
+    max: 10
   },
-  thumbnail:{
-    type:String
+  thumbnail: {
+    type: String
   },
-  createdBy:{
-    type:mongoose.Schema.Types.ObjectId,
-    ref:"User",
+  videoPath: {
+    type: String,
   },
-}, {timestamps:true}
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
+}, { timestamps: true }
 )
 
 module.exports = mongoose.model("Movie", movieSchema)
