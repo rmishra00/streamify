@@ -116,6 +116,10 @@ exports.streamMovie = async (req, res, next) => {
     }
 
     const videoPath = movie.videoPath;
+    if (!fs.existsSync(videoPath)) {
+      throw new AppError("Video file missing on server", 404);
+    }
+
     const videoSize = fs.statSync(videoPath).size;
 
     const range = req.headers.range;
